@@ -70,7 +70,12 @@ export class StockService implements IStockService {
   }
 
   editStock(stock: Stock): Stock[] {
-    this.stocks.find((s) => s.id === stock.id).value = stock.value;
+    const currentStock = this.stocks.find((s) => s.id === stock.id);
+    currentStock.name = stock.name;
+    currentStock.description = stock.description;
+    currentStock.value = stock.value;
+    currentStock.startValueDate = stock.startValueDate;
+    currentStock.dayStartValue = stock.dayStartValue;
     return this.stocks;
   }
 }
