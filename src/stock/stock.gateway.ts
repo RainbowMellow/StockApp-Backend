@@ -26,19 +26,19 @@ export class StockGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server;
 
   @SubscribeMessage('editSave')
-  handleEditSave(@MessageBody() stock: Stock): void {
-    const stocks = this.stockService.editStock(stock);
+  async handleEditSave(@MessageBody() stock: Stock): Promise<void> {
+    const stocks = await this.stockService.editStock(stock);
     this.server.emit('editStock', stocks);
   }
 
   @SubscribeMessage('getStocks')
-  handleGetStocks(@ConnectedSocket() client: Socket): void {
-    client.emit('stocks', this.stockService.getStocks());
+  async handleGetStocks(@ConnectedSocket() client: Socket): Promise<void> {
+    client.emit('stocks', await this.stockService.getStocks());
   }
 
   @SubscribeMessage('deleteStock')
-  handleDeleteStock(@MessageBody() stock: Stock): void {
-    const stocks = this.stockService.deleteStock(stock);
+  async handleDeleteStock(@MessageBody() stock: Stock): Promise<void> {
+    const stocks = await this.stockService.deleteStock(stock);
     this.server.emit('deleteStock', stocks);
   }
 

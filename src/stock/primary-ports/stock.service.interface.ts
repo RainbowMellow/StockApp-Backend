@@ -2,15 +2,11 @@ import { Stock } from '../stock.model';
 
 export const IStockServiceProvider = 'IStockServiceProvider';
 export interface IStockService {
-  getStocks(): Stock[];
+  getStocks(): Promise<Stock[]>;
 
-  increaseAmount(stock: Stock): Stock;
+  addStocks(): Promise<void>;
 
-  decreaseAmount(stock: Stock): Stock;
+  editStock(stock: Stock): Promise<Stock[]>;
 
-  addStocks(): void;
-
-  editStock(stock: Stock): void;
-
-  deleteStock(stock: Stock): void;
+  deleteStock(stock: Stock): Promise<Stock[]>;
 }
